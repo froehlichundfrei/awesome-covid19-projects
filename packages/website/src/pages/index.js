@@ -114,6 +114,13 @@ class HelpCenterIndex extends React.Component {
                   >
                     {project.description}
                   </section>
+                  <a
+                    href={project.url}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    {project.url}
+                  </a>
                 </div>
               </article>
             </Link>
@@ -289,6 +296,7 @@ export const pageQuery = graphql`
         id
         title
         description
+        url
       }
     }
   }
