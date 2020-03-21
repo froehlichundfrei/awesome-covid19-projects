@@ -96,6 +96,9 @@ class HelpCenterIndex extends React.Component {
                         color: 'inherit',
                       }}
                     >
+                      {project.twitterActions
+                        ? `(${project.twitterActions}) `
+                        : ''}
                       {project.title || project.id}
                     </h3>
                   </header>
@@ -279,10 +282,11 @@ export const pageQuery = graphql`
       }
     }
     hasura {
-      projects {
+      projects(order_by: { twitterActions: desc }) {
         id
         title
         description
+        twitterActions
       }
     }
   }

@@ -68,7 +68,10 @@ class ProjectTemplate extends React.Component {
             <p sx={{ my: 3, color: 'articleDescriptionColor' }}>
               {project.description}
             </p>
-            <h4 sx={{ m4: 3, mb: 3 }}>Website Preview</h4>
+            <a href={project.url} rel="noopener noreferrer" target="_blank">
+              {project.url}
+            </a>
+            <h4 sx={{ mt: 4, mb: 3 }}>Website Preview</h4>
             <img
               src={`http://95.217.162.167:8081/${project.id}.png`}
               alt="Project Site"
@@ -164,10 +167,7 @@ class ProjectTemplate extends React.Component {
               </div>
             )} */}
           </header>
-          <hr sx={{ background: 'hsla(0,0%,0%,0.05)' }} />
-          <a href={project.url} rel="noopener noreferrer" target="_blank">
-            {project.url}
-          </a>
+          {/* <hr sx={{ background: 'hsla(0,0%,0%,0.05)' }} /> */}
           {/* <section
             sx={{ pb: 4 }}
             dangerouslySetInnerHTML={{ __html: article.html }}

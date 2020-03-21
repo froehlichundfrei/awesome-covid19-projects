@@ -48,6 +48,7 @@ exports.createPages = async ({ graphql, actions }) => {
             title
             description
             url
+            twitterActions
             created_at
           }
         }
