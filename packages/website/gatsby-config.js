@@ -1,22 +1,22 @@
 module.exports = {
   siteMetadata: {
-    title: `Free Help Center`,
-    author: `Dominik Ferber`,
+    title: `Awesome Covid19 Projects`,
+    author: `TBD`,
     // You'd normally use a description like
     // "Advice and answers by the MyCompany-Team"
-    description: `Get a free self-hosted Help Center like this one`,
-    siteUrl: `https://help.dferber.de/`,
-    language: 'en',
+    description: ``,
+    siteUrl: `https://5e75f1746bd87000072e2935--boring-shannon-e5fb24.netlify.com/collections/introduction`,
+    language: 'de',
     texts: {
       allCollectionsText: 'All Collections',
-      searchPlaceholderText: 'Search for answers…',
-      lastModifiedText: 'Last edited',
-      publishedOnText: 'Published on',
-      writtenByText: 'Written by',
-      articlesInCollectionZeroText: 'articles in this collection',
-      articlesInCollectionOneText: 'article in this collection',
-      articlesInCollectionTwoText: 'articles in this collection',
-      articlesInCollectionMultipleText: 'articles in this collection',
+      searchPlaceholderText: 'Suche nach Projekten',
+      lastModifiedText: 'Zuletzt editiert',
+      publishedOnText: 'Veröffentlicht am',
+      writtenByText: 'Geschrieben von',
+      articlesInCollectionZeroText: 'Projekte in dieser Gruppe',
+      articlesInCollectionOneText: 'Projekte in dieser Gruppe',
+      articlesInCollectionTwoText: 'Projekte in dieser Gruppe',
+      articlesInCollectionMultipleText: 'Projekte in dieser Gruppe',
     },
   },
   mapping: {
