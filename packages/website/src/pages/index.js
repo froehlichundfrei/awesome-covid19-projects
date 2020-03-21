@@ -27,7 +27,7 @@ class HelpCenterIndex extends React.Component {
         description={this.props.data.site.siteMetadata.description}
       >
         <SEO title={this.props.data.site.siteMetadata.title} skipSuffix />
-        {this.props.data.hasura.services.map((service, index) => {
+        {this.props.data.hasura.projects.map((project, index) => {
           // const articlesOfCollection = concatArticles(node);
 
           // const icon = node.icon
@@ -40,14 +40,14 @@ class HelpCenterIndex extends React.Component {
 
           return (
             <Link
-              key={service.id}
+              key={project.id}
               sx={{
                 boxShadow: `none`,
                 '&:hover': {
                   textDecoration: 'none',
                 },
               }}
-              to={service.id}
+              to={project.id}
             >
               <article
                 sx={{
@@ -104,7 +104,7 @@ class HelpCenterIndex extends React.Component {
                         color: 'inherit',
                       }}
                     >
-                      {service.title}
+                      {project.title}
                     </h3>
                   </header>
                   <section
@@ -112,7 +112,7 @@ class HelpCenterIndex extends React.Component {
                       color: 'paperDescriptionColor',
                     }}
                   >
-                    {service.description}
+                    {project.description}
                   </section>
                 </div>
               </article>
@@ -285,7 +285,7 @@ export const pageQuery = graphql`
       }
     }
     hasura {
-      services {
+      projects {
         id
         title
         description
