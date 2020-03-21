@@ -1,11 +1,13 @@
 export default {
   colors: {
     text: '#333',
-    headerBackground: '#607d8b',
+    // headerBackground: '#607d8b',
+    headerBackground: '#3DB27E',
     headerText: 'white',
     paperBackgroundColor: 'white',
     paperHoverBackgroundColor: '#fcfcfc',
-    paperHeadingColor: '#1CAEE0',
+    // paperHeadingColor: '#1CAEE0',
+    paperHeadingColor: '#3577A2',
     paperHoverHeadingColor: '#1f8ded',
     paperBorderColor: 'transparent',
     paperDescriptionColor: 'rgb(86, 88, 103)',
