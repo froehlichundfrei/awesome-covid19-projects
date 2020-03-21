@@ -71,6 +71,14 @@ module.exports = {
         ],
       },
     },
+    {
+      resolve: 'gatsby-source-graphql',
+      options: {
+        typeName: 'HASURA',
+        fieldName: 'hasura',
+        url: `http://95.217.162.167:8080/v1/graphql`,
+      },
+    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     // {

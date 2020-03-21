@@ -27,6 +27,98 @@ class HelpCenterIndex extends React.Component {
         description={this.props.data.site.siteMetadata.description}
       >
         <SEO title={this.props.data.site.siteMetadata.title} skipSuffix />
+        {this.props.data.hasura.services.map((service, index) => {
+          // const articlesOfCollection = concatArticles(node);
+
+          // const icon = node.icon
+          //   ? jsx(
+          //       icons[node.icon],
+          //       { sx: { color: 'iconColor' }, size: '2rem' },
+          //       null,
+          //     )
+          //   : null;
+
+          return (
+            <Link
+              key={service.id}
+              sx={{
+                boxShadow: `none`,
+                '&:hover': {
+                  textDecoration: 'none',
+                },
+              }}
+              to={service.id}
+            >
+              <article
+                sx={{
+                  backgroundColor: 'paperBackgroundColor',
+                  borderWidth: 1,
+                  borderStyle: 'solid',
+                  borderColor: 'paperBorderColor',
+                  borderRadius: 3,
+                  py: 4,
+                  px: 2,
+                  position: 'relative',
+                  zIndex: '3',
+                  textDecoration: 'none',
+                  overflow: 'hidden',
+                  width: '100%',
+                  display: 'flex',
+                  flexDirection: ['column', 'row'],
+                  outline: 'none',
+                  mt: index === 0 ? 5 : 0,
+                  mb:
+                    index === this.props.data.collections.edges.length - 1
+                      ? 5
+                      : 4,
+                  boxShadow: '0 3px 8px 0 rgba(0,0,0,0.03)',
+                  transition:
+                    'border .15s linear, transform .15s linear, background-color .15s linear, box-shadow .15s linear, opacity .15s linear, transform .15s linear, box-shadow .15s linear',
+                  color: 'paperHeadingColor',
+                  '&:hover': {
+                    border: '1px solid rgba(136,149,162,0.2)',
+                    backgroundColor: 'paperHoverBackgroundColor',
+                    color: 'paperHoverHeadingColor',
+                  },
+                }}
+              >
+                <div
+                  sx={{
+                    flex: '1',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: ['flex-start', 'center'],
+                    px: [2, 0],
+                    pb: [3, 0],
+                  }}
+                >
+                  {/* {icon} */}
+                  ICON
+                </div>
+                <div sx={{ flex: '6', px: [2, 0] }}>
+                  <header>
+                    <h3
+                      sx={{
+                        mt: 0,
+                        mb: 2,
+                        color: 'inherit',
+                      }}
+                    >
+                      {service.title}
+                    </h3>
+                  </header>
+                  <section
+                    sx={{
+                      color: 'paperDescriptionColor',
+                    }}
+                  >
+                    {service.description}
+                  </section>
+                </div>
+              </article>
+            </Link>
+          );
+        })}
         {this.props.data.collections.edges.map(({ node }, index) => {
           const articlesOfCollection = concatArticles(node);
 
@@ -190,6 +282,13 @@ export const pageQuery = graphql`
             slug
           }
         }
+      }
+    }
+    hasura {
+      services {
+        id
+        title
+        description
       }
     }
   }
