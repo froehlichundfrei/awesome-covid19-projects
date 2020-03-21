@@ -1,7 +1,14 @@
 # awesome-covid19
 
-Awesome list for awesome convid 19 projects
+This reposotory is currently WIP. More information will be added soon.
 
-## Neighbourly Help
+### Setup
 
-* [wirhelfen.eu](https://wirhelfen.eu/)
+```
+# install node modules
+yarn install
+# start gatsby dev server
+yarn start
+```
+
+The website should now be available on `http://localhost:8000/`
