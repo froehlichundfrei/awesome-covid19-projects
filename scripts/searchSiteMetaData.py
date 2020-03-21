@@ -21,7 +21,7 @@ def getSiteUrlsFromHasura(siteObjects):
 
     hasuraSiteEntries = client.execute(query)
 
-    siteObject = {}
+    #siteObject = {}
     for hasuraSiteEntrie in hasuraSiteEntries["data"]["projects"]:
         siteObjectProperties = {}
         try:
@@ -43,7 +43,7 @@ def getSiteUrlsFromHasura(siteObjects):
                         # print('NAME:', tag.attrs['name'].lower())
                         siteObjectProperties["siteMetaDescription"] = tag.attrs['content']
         except:
-            print("URL ignored")
+            print("Parsing Error - Ignore URL: ", hasuraSiteEntrie["url"])
         siteObjects.append(siteObjectProperties)
 
     print(siteObjects)
@@ -51,30 +51,6 @@ def getSiteUrlsFromHasura(siteObjects):
 
 
 getSiteUrlsFromHasura(siteObjects)
-
-"""
-def getMetaInformation(siteObjects):
-
-    for siteObject in siteObjects:
-        r = requests.get(siteObject["siteUrl"])
-        soup = BeautifulSoup(r.content, "html")
-
-        siteObject["siteMetaTitle"] = soup.title.string
-
-        meta = soup.find_all('meta')
-
-        for tag in meta:
-            if 'name' in tag.attrs.keys() and tag.attrs['name'].strip().lower() in ['description']:
-                # print('NAME:', tag.attrs['name'].lower())
-                siteObject["siteMetaDescription"] = tag.attrs['content']
-
-    siteObjects.append(siteObject)
-    # print(siteObjects)
-    return siteObjects
-
-
-getMetaInformation(siteObjects)
-"""
 
 
 def upsertSiteMetaInformationToHasura(siteObjects):
@@ -99,16 +75,12 @@ def upsertSiteMetaInformationToHasura(siteObjects):
                 }
             """
             graphQlResult = client.execute(insertQuery, variables)
-            print(siteObject)
-            print("Insert: ")
             print(graphQlResult)
             if graphQlResult["errors"][0]["message"] == ('Uniqueness violation. duplicate key value violates unique constraint "projects_url_key"'):
                 graphQlResult = client.execute(updateQuery, variables)
-                print(siteObject)
-                print("Update: ")
                 print(graphQlResult)
         except:
-            print("Ignore GraphQL")
+            print("GraphQL Import Error: ", graphQlResult)
 
 
 upsertSiteMetaInformationToHasura(siteObjects)
