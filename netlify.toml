@@ -1,14 +1,14 @@
 # example netlify.toml
 [build]
   # website 1
-  #command = "yarn build"
-  #functions = "functions"
-  #publish = "packages/website/public"
+  command = "yarn build"
+  functions = "functions"
+  publish = "packages/website/public"
 
   #website 2
-  command = "yarn workspace website2 build"
-  functions = "functions"
-  publish = "packages/website2/build"
+  #command = "yarn workspace website2 build"
+  #functions = "functions"
+  #publish = "packages/website2/build"
 
   ## Uncomment to use this redirect for Single Page Applications like create-react-app.
   ## Not needed for static site generators.
