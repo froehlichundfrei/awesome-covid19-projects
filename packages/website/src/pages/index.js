@@ -30,14 +30,11 @@ class HelpCenterIndex extends React.Component {
         {this.props.data.hasura.projects.map((project, index) => {
           // const articlesOfCollection = concatArticles(node);
 
-          // const icon = node.icon
-          //   ? jsx(
-          //       icons[node.icon],
-          //       { sx: { color: 'iconColor' }, size: '2rem' },
-          //       null,
-          //     )
-          //   : null;
-
+          const icon = jsx(
+            icons[project.icon || 'FaFire'],
+            { sx: { color: 'iconColor' }, size: '2rem' },
+            null,
+          );
           return (
             <Link
               key={project.id}
@@ -92,8 +89,7 @@ class HelpCenterIndex extends React.Component {
                     pb: [3, 0],
                   }}
                 >
-                  {/* {icon} */}
-                  ICON
+                  {icon}
                 </div>
                 <div sx={{ flex: '6', px: [2, 0] }}>
                   <header>

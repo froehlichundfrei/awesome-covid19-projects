@@ -116,4 +116,6 @@ export {
   // FaRegSun,
   // FaMicrophoneAlt,
   FaRegListAlt,
+  // New
+  FaFire,
 } from 'react-icons/fa';
