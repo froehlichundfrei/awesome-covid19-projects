@@ -8,12 +8,13 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "yarn workspace website build",
-    "commit": "git-cz",
     "clean": "lerna clean",
+    "commit": "git-cz",
     "dev": "lerna run --parallel dev",
     "fix": "eslint --fix --ext .js --ignore-path .gitignore packages || true && prettier --write \"packages/**/*\"",
     "lint": "eslint --debug --ignore-path .gitignore ./packages",
     "release": "lerna version --conventional-commits",
+    "start": "yarn workspace website start",
     "test": "lerna run --stream test"
   },
   "devDependencies": {
