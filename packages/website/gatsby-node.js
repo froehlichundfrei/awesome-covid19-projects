@@ -7,6 +7,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   const articlePage = require.resolve(`./src/templates/article.js`);
   const collectionPage = require.resolve(`./src/templates/collection.js`);
+  const projectPage = require.resolve(`./src/templates/project.js`);
   const result = await graphql(
     `
       {
@@ -39,6 +40,15 @@ exports.createPages = async ({ graphql, actions }) => {
                 slug
               }
             }
+          }
+        }
+        hasura {
+          projects {
+            id
+            title
+            description
+            url
+            created_at
           }
         }
       }
@@ -76,6 +86,14 @@ exports.createPages = async ({ graphql, actions }) => {
         slug: node.fields.slug,
         collectionId: node.id,
       },
+    });
+  });
+  const { projects } = result.data.hasura;
+  projects.forEach(project => {
+    createPage({
+      path: `/projects/${project.id}`,
+      component: projectPage,
+      context: project,
     });
   });
 };

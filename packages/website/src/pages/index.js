@@ -47,7 +47,7 @@ class HelpCenterIndex extends React.Component {
                   textDecoration: 'none',
                 },
               }}
-              to={`/${project.id}`}
+              to={`/projects/${project.id}`}
             >
               <article
                 sx={{
@@ -114,13 +114,6 @@ class HelpCenterIndex extends React.Component {
                   >
                     {project.description}
                   </section>
-                  <a
-                    href={project.url}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    {project.url}
-                  </a>
                 </div>
               </article>
             </Link>
