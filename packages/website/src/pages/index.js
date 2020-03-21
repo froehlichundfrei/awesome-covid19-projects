@@ -104,14 +104,16 @@ class HelpCenterIndex extends React.Component {
                       color: 'paperDescriptionColor',
                     }}
                   >
-                    {project.description}
+                    {project.description.length < 300
+                      ? project.description
+                      : project.description.substring(0, 299)}
                   </section>
                 </div>
               </article>
             </Link>
           );
         })}
-        {this.props.data.collections.edges.map(({ node }, index) => {
+        {/* {this.props.data.collections.edges.map(({ node }, index) => {
           const articlesOfCollection = concatArticles(node);
 
           const icon = node.icon
@@ -224,7 +226,7 @@ class HelpCenterIndex extends React.Component {
               </article>
             </Link>
           );
-        })}
+        })} */}
       </Layout>
     );
   }
