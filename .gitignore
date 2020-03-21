@@ -1,0 +1,34 @@
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE
+.idea/
+sftp-config.json
+.tmp/
+.vscode/chrome
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-error.log
+
+# Runtime
+pids
+*.pid
+*.seed
+
+# Folders
+build
+coverage
+node_modules
+
+# Extentions
+*.pyc
+*.csv*

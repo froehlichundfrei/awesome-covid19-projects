@@ -1,0 +1,83 @@
+# Collections and articles are shown in the same order as defined here
+# See this for a full-blown example of a collection
+# - id: "slug-of-the-collection"
+#   title: "The Collection Title"
+#   description: "The collection's description"
+#   # see src/utils/icons.js for a list of all possible icons
+#   icon: "FaBook"
+#   # These are the "pinned" articles at the top of a collection
+#   articles:
+#     # All articles must be in the "../content" folder
+#     - file: ../content/first-article/index.md
+#     - file: ../content/second-article/index.md
+#   sections:
+#     - id: used-as-the-hashtag-of-the-land-animals-section
+#       title: "Land animals"
+#       articles:
+#         - file: ../content/lion/index.md
+#         - file: ../content/cat/index.md
+#     - id: used-as-the-hashtag-of-the-sea-animals-section
+#       title: "Sea animals"
+#       articles:
+#         - file: ../content/dolphins/index.md
+#         - file: ../content/whales/index.md
+
+- id: introduction
+  title: Introduction
+  description: Brief overview of the free help center
+  icon: 'FaRegHandPeace'
+  articles:
+    - file: ../content/welcome/index.md
+
+- id: features-and-nonfeatures
+  title: Features and Non-Features
+  description: Everything the Free Help Center offers out of the box
+  icon: 'FaBox'
+  sections:
+    - id: features
+      title: Features
+      articles:
+        - file: ../content/features/index.md
+    - id: nonfeatures
+      title: Non-Features
+      articles:
+        - file: ../content/comparison-to-saas/index.md
+
+- id: usage
+  title: Usage
+  description: Setup and usage guides for the free help center
+  icon: 'FaRegListAlt'
+  sections:
+    - id: setup
+      title: Setup
+      articles:
+        - file: ../content/setup/index.md
+    - id: run-locally
+      title: Running locally
+      articles:
+        - file: ../content/run-locally/index.md
+    - id: editing-content
+      title: Editing content
+      articles:
+        - file: ../content/create-article/index.md
+        - file: ../content/managing-collections/index.md
+        - file: ../content/managing-authors/index.md
+        - file: ../content/managing-dates/index.md
+    - id: customizing
+      title: Customizing
+      articles:
+        - file: ../content/customizing-brand-logo/index.md
+        - file: ../content/customizing-locale/index.md
+        - file: ../content/customizing-icons/index.md
+        - file: ../content/customizing-theme/index.md
+    - id: deploying
+      title: Deploying
+      articles:
+        - file: ../content/deploy/index.md
+
+- id: giving-back
+  title: Giving back
+  description: 'Options in case you want to say "thank you"'
+  icon: 'FaPeopleCarry'
+  articles:
+    - file: ../content/giving-back/index.md
