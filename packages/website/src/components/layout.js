@@ -283,9 +283,9 @@ function SearchInputNew(props) {
         padding: '30px',
       }}
     >
-      <div sx={{ position: 'relative', flex: '30%' }}>
+      <div sx={{ position: 'relative', flex: '60%' }}>
         <label
-          htmlFor="areaCode"
+          htmlFor="search"
           sx={{
             position: 'absolute',
             left: '18pt',
@@ -296,20 +296,17 @@ function SearchInputNew(props) {
             cursor: 'text',
           }}
         >
-          <FaMapMarker
-            color={areaCodeFocused ? '#828A97' : 'rgba(255,255,255,0.9)'}
+          <FaSearch
+            color={searchFocused ? '#828A97' : 'rgba(255,255,255,0.9)'}
           />
         </label>
         <input
-          id="areaCode"
+          id="search"
           type="text"
-          value={areaCodeText}
+          value={searchText}
           autoFocus
-          onChange={event =>
-            /^[0-9]{0,5}$/.test(event.target.value) &&
-            setAreaCodeText(event.target.value)
-          }
-          placeholder="PLZ"
+          onChange={event => setSearchText(event.target.value)}
+          placeholder={data.site.siteMetadata.texts.searchPlaceholderText}
           autoComplete="off"
           sx={{
             backgroundColor: 'rgba(255,255,255,0.2)',
@@ -337,9 +334,9 @@ function SearchInputNew(props) {
           }}
         />
       </div>
-      <div sx={{ position: 'relative', flex: '60%', marginLeft: '20px' }}>
+      <div sx={{ position: 'relative', flex: '30%', marginLeft: '20px' }}>
         <label
-          htmlFor="search"
+          htmlFor="areaCode"
           sx={{
             position: 'absolute',
             left: '18pt',
@@ -350,17 +347,20 @@ function SearchInputNew(props) {
             cursor: 'text',
           }}
         >
-          <FaSearch
-            color={searchFocused ? '#828A97' : 'rgba(255,255,255,0.9)'}
+          <FaMapMarker
+            color={areaCodeFocused ? '#828A97' : 'rgba(255,255,255,0.9)'}
           />
         </label>
         <input
-          id="search"
+          id="areaCode"
           type="text"
-          value={searchText}
+          value={areaCodeText}
           // autoFocus
-          onChange={event => setSearchText(event.target.value)}
-          placeholder={data.site.siteMetadata.texts.searchPlaceholderText}
+          onChange={event =>
+            /^[0-9]{0,5}$/.test(event.target.value) &&
+            setAreaCodeText(event.target.value)
+          }
+          placeholder="PLZ"
           autoComplete="off"
           sx={{
             backgroundColor: 'rgba(255,255,255,0.2)',

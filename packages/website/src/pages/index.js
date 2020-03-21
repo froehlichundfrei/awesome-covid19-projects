@@ -28,13 +28,6 @@ class HelpCenterIndex extends React.Component {
       >
         <SEO title={this.props.data.site.siteMetadata.title} skipSuffix />
         {this.props.data.hasura.projects.map((project, index) => {
-          // const articlesOfCollection = concatArticles(node);
-
-          const icon = jsx(
-            icons[project.icon || 'FaFire'],
-            { sx: { color: 'iconColor' }, size: '2rem' },
-            null,
-          );
           return (
             <Link
               key={project.id}
@@ -86,12 +79,15 @@ class HelpCenterIndex extends React.Component {
                     alignItems: 'center',
                     justifyContent: ['flex-start', 'center'],
                     px: [2, 0],
-                    pb: [3, 0],
+                    pb: [2, 0],
                   }}
                 >
-                  {icon}
+                  <img
+                    src={`http://95.217.162.167:8081/${project.id}.png`}
+                    alt="Project Site"
+                  />
                 </div>
-                <div sx={{ flex: '6', px: [2, 0] }}>
+                <div sx={{ flex: '6', px: [2, 0], ml: 4 }}>
                   <header>
                     <h3
                       sx={{
@@ -115,7 +111,7 @@ class HelpCenterIndex extends React.Component {
             </Link>
           );
         })}
-        {/* {this.props.data.collections.edges.map(({ node }, index) => {
+        {this.props.data.collections.edges.map(({ node }, index) => {
           const articlesOfCollection = concatArticles(node);
 
           const icon = node.icon
@@ -228,7 +224,7 @@ class HelpCenterIndex extends React.Component {
               </article>
             </Link>
           );
-        })} */}
+        })}
       </Layout>
     );
   }

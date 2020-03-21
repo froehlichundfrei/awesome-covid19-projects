@@ -68,6 +68,12 @@ class ProjectTemplate extends React.Component {
             <p sx={{ my: 3, color: 'articleDescriptionColor' }}>
               {project.description}
             </p>
+            <h4 sx={{ m4: 3, mb: 3 }}>Website Preview</h4>
+            <img
+              src={`http://95.217.162.167:8081/${project.id}.png`}
+              alt="Project Site"
+            />
+            ;
             {/* {article.frontmatter.author && (
               <div sx={{ mt: 2, mb: 4, display: 'flex' }}>
                 <div sx={{ display: 'flex', alignItems: 'center' }}>
