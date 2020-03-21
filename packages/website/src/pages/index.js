@@ -27,7 +27,7 @@ class HelpCenterIndex extends React.Component {
         description={this.props.data.site.siteMetadata.description}
       >
         <SEO title={this.props.data.site.siteMetadata.title} skipSuffix />
-        {this.props.data.hasura.projects.map((project, index) => {
+        {/* {this.props.data.hasura.projects.map((project, index) => {
           // const articlesOfCollection = concatArticles(node);
 
           // const icon = node.icon
@@ -92,7 +92,7 @@ class HelpCenterIndex extends React.Component {
                     pb: [3, 0],
                   }}
                 >
-                  {/* {icon} */}
+                  {icon}
                   ICON
                 </div>
                 <div sx={{ flex: '6', px: [2, 0] }}>
@@ -118,7 +118,7 @@ class HelpCenterIndex extends React.Component {
               </article>
             </Link>
           );
-        })}
+        })} */}
         {this.props.data.collections.edges.map(({ node }, index) => {
           const articlesOfCollection = concatArticles(node);
 
@@ -284,12 +284,12 @@ export const pageQuery = graphql`
         }
       }
     }
-    hasura {
-      projects {
-        id
-        title
-        description
-      }
-    }
+    # hasura {
+    #   projects {
+    #     id
+    #     title
+    #     description
+    #   }
+    # }
   }
 `;
