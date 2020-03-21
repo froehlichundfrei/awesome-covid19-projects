@@ -1,9 +1,9 @@
 # example netlify.toml
 [build]
   # website 1
-  command = "yarn build"
-  functions = "functions"
-  publish = "packages/website/public"
+  #command = "yarn build"
+  #functions = "functions"
+  #publish = "packages/website/public"
 
   #website 2
   command = "yarn workspace website2 build"
