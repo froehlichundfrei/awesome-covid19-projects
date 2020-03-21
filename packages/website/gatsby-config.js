@@ -8,8 +8,8 @@ module.exports = {
     siteUrl: `https://5e75f1746bd87000072e2935--boring-shannon-e5fb24.netlify.com/collections/introduction`,
     language: 'de',
     texts: {
-      allCollectionsText: 'All Collections',
-      searchPlaceholderText: 'Suche nach Projekten',
+      allCollectionsText: 'Alle Projekte',
+      searchPlaceholderText: 'Suche nach Projekten in deiner Nähe',
       lastModifiedText: 'Zuletzt editiert',
       publishedOnText: 'Veröffentlicht am',
       writtenByText: 'Geschrieben von',
