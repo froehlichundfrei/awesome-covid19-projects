@@ -106,7 +106,7 @@ class HelpCenterIndex extends React.Component {
                   >
                     {project.description.length < 300
                       ? project.description
-                      : project.description.substring(0, 299)}
+                      : `${project.description.substring(0, 299)}...`}
                   </section>
                 </div>
               </article>
