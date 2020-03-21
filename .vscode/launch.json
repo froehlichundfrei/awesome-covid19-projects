@@ -1,0 +1,17 @@
+{
+  "version": "0.1.0",
+  "configurations": [
+    {
+      "name": "new chrome",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:8000",
+      "sourceMaps": true,
+      "webRoot": "${workspaceRoot}",
+      "userDataDir": "${workspaceRoot}/.vscode/chrome",
+      "skipFiles": [
+        "node_modules/**"
+      ]
+    }
+  ]
+}

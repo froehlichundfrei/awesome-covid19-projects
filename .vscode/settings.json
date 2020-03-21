@@ -1,0 +1,26 @@
+// Platzieren Sie Ihre Einstellungen in dieser Datei, um Standard- und Benutzereinstellungen zu überschreiben.
+{
+  "javascript.validate.enable": false,
+  "files.exclude": {
+    ".vscode": true,
+    "node_modules": true,
+    "packages/fuf-website/.cache": true,
+    "packages/fuf-website/node_modules": true,
+    "packages/fuf-website/public": true,
+    "vendor/terminal-in-react/node_modules": true
+  },
+  "files.associations": {},
+  // eslint and prettier settings
+  "editor.formatOnSave": true,
+  "[javascript]": {
+    "editor.formatOnSave": false
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": false
+  },
+  "eslint.alwaysShowStatus": true,
+  "prettier.disableLanguages": ["js", "javascriptreact"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}

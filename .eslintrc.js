@@ -15,7 +15,9 @@ module.exports = {
         extensions: ['.js', '.jsx'],
       },
     ],
+    'react/jsx-curly-newline': 'off',
+    'react/jsx-one-expression-per-line': 'off',
+    'react/jsx-wrap-multilines': 'off',
     'react/sort-prop-types': 'error',
-    'sort-keys': 'warn',
   },
 };
