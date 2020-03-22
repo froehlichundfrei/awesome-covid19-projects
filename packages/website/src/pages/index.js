@@ -50,6 +50,11 @@ const HelpCenterIndex = props => {
         minMatchCharLength: 3,
         keys: ['areaCode'],
       }).search(areaCodeText);
+      // add all areaCodes
+      filtered = [
+        ...filtered,
+        ...projects.filter(({ areaCode }) => areaCode === 'all'),
+      ];
     }
     return filtered;
   };
