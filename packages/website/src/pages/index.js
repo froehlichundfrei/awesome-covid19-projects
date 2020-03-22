@@ -42,12 +42,6 @@ const HelpCenterIndex = props => {
     if (areaCodeText) {
       filtered = new Fuse(filtered, {
         shouldSort: true,
-        tokenize: true,
-        threshold: 0.6,
-        location: 0,
-        distance: 100,
-        maxPatternLength: 32,
-        minMatchCharLength: 3,
         keys: ['areaCode'],
       }).search(areaCodeText);
       // add all areaCodes
