@@ -5,10 +5,10 @@ from minio import Minio
 from minio.error import ResponseError
 # requires manuall installation of git repo in python 3.8
 # python3 -m pip install -U git+https://github.com/miyakogi/pyppeteer.git@dev
-minioClient = Minio('play.min.io',
+minioClient = Minio('95.217.162.167:9000',
                   access_key='minio',
                   secret_key='awsomeCov19',
-                  secure=True)
+                  secure=false)
 async def main(url, imageName):
     browser = await launch(args=['--no-sandbox'])
     page = await browser.newPage()
