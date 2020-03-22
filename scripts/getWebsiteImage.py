@@ -7,8 +7,8 @@ from minio.error import ResponseError
 # python3 -m pip install -U git+https://github.com/miyakogi/pyppeteer.git@dev
 minioClient = Minio('95.217.162.167:9000',
                   access_key='minio',
-                  secret_key='awsomeCov19',
-                  secure=False)
+                  secret_key='awsomeCov19'
+
 async def main(url, imageName):
     browser = await launch(args=['--no-sandbox'])
     page = await browser.newPage()
@@ -35,11 +35,11 @@ for hasuraSiteEntrie in hasuraSiteEntries["data"]["projects"]:
     imageName = str(hasuraSiteEntrie["id"]) + ".png"
     print(url)
     print(imageName)
-    asyncio.get_event_loop().run_until_complete(main(url, imageName))
+    asyncio.get_event_loop().run_until_complete(main(url, imageName, 1000))
     try:
       minioClient.fput_object('webimages', imageName, imageName)
     except ResponseError as err:
-      print(err)
+      print(f"Blub: {err}")
 
 
 
