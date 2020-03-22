@@ -21,7 +21,6 @@ def getSiteUrlsFromHasura(siteObjects):
 
     hasuraSiteEntries = client.execute(query)
 
-    #siteObject = {}
     for hasuraSiteEntrie in hasuraSiteEntries["data"]["projects"]:
         siteObjectProperties = {}
         try:
@@ -46,7 +45,6 @@ def getSiteUrlsFromHasura(siteObjects):
             print("Parsing Error - Ignore URL: ", hasuraSiteEntrie["url"])
         siteObjects.append(siteObjectProperties)
 
-    print(siteObjects)
     return siteObjects
 
 
@@ -60,13 +58,6 @@ def upsertSiteMetaInformationToHasura(siteObjects):
                 endpoint='http://95.217.162.167:8080/v1/graphql')
             variables = {"url": siteObject["siteUrl"], "siteMetaTitle": siteObject["siteMetaTitle"],
                          "siteMetaDescription": siteObject["siteMetaDescription"]}
-            insertQuery = """
-                mutation insertProject($url: String, $siteMetaTitle: String, $siteMetaDescription: String) {
-                    insert_projects(objects: {url: $url, title: $siteMetaTitle, description: $siteMetaDescription}) {
-                        affected_rows
-                    }
-                }
-            """
             updateQuery = """
                 mutation updateProject($url: String, $siteMetaTitle: String, $siteMetaDescription: String) {
                     update_projects(where: {url: {_eq: $url}}, _set: {title: $siteMetaTitle, description: $siteMetaDescription}) {
@@ -74,13 +65,15 @@ def upsertSiteMetaInformationToHasura(siteObjects):
                     }
                 }
             """
-            graphQlResult = client.execute(insertQuery, variables)
+            graphQlResult = client.execute(updateQuery, variables)
             print(graphQlResult)
-            if graphQlResult["errors"][0]["message"] == ('Uniqueness violation. duplicate key value violates unique constraint "projects_url_key"'):
-                graphQlResult = client.execute(updateQuery, variables)
-                print(graphQlResult)
         except:
-            print("GraphQL Import Error: ", graphQlResult)
+            print("GraphQL Import Error for URL: ", siteObject["siteUrl"])
+        """
+        if graphQlResult["errors"][0]["message"] == ('Uniqueness violation. duplicate key value violates unique constraint "projects_url_key"'):
+            graphQlResult = client.execute(updateQuery, variables)
+            print(graphQlResult)
+        """
 
 
 upsertSiteMetaInformationToHasura(siteObjects)
