@@ -406,7 +406,10 @@ export const pageQuery = graphql`
       }
     }
     hasura {
-      projects(order_by: { twitterActions: desc }) {
+      projects(
+        where: { title: { _neq: "not set" } }
+        order_by: { twitterActions: desc }
+      ) {
         id
         title
         description
