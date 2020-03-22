@@ -54,6 +54,11 @@ const HelpCenterIndex = props => {
     return filtered;
   };
 
+  const areaCodeIcon = jsx(
+    icons.FaMapMarker,
+    { sx: { color: 'iconColor' }, size: '14px' },
+    null,
+  );
   const bookmarkIcon = jsx(
     icons.FaBookmark,
     { sx: { color: 'iconColor' }, size: '14px' },
@@ -183,7 +188,8 @@ const HelpCenterIndex = props => {
                           fontSize: '14px',
                         }}
                       >
-                        Ratings
+                        {areaCodeIcon}
+                        {project.areaCode ? ` ${project.areaCode}` : ' all'}
                       </section>
                     </div>
                     <div
@@ -405,6 +411,7 @@ export const pageQuery = graphql`
         title
         description
         twitterActions
+        areaCode
         user_bookmarks {
           user {
             id
