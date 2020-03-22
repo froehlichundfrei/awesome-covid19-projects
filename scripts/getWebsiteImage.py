@@ -38,8 +38,8 @@ for hasuraSiteEntrie in hasuraSiteEntries["data"]["projects"]:
     asyncio.get_event_loop().run_until_complete(main(url, imageName))
     try:
       minioClient.fput_object('webimages', imageName, imageName)
-    except ResponseError as err:
-      print(f'Blub: {err}')
+    except:
+      print('ignore every fucking error')
 
 
 
