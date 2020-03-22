@@ -11,7 +11,7 @@ minioClient = Minio('play.min.io',
                   secure=True)
 async def main(url, imageName):
     browser = await launch()
-    page = await browser.newPage()
+    page = await browser.newPage(args=['--no-sandbox'])
     try:
         await page.goto(url)
         await page.screenshot({'path': imageName})
