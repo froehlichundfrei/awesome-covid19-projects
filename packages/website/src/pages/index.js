@@ -19,8 +19,21 @@ function concatArticles(node) {
   ];
 }
 
-const randomNumber = () => Math.floor(Math.random() * 10);
+const randomUsers = () =>{ 
+  let result = [];
+  const max = Math.floor(Math.random(100) * 10);
+  for(let i = 0; i < max; i ++){
+    let random = Math.floor(Math.random(max) * 10);
+    if(result.indexOf(random) === -1){
 
+      result.push(random)
+    } 
+  }
+  let final = result.length > 0 ? result : [3]
+  return final; //Math.floor(Math.random(max) * 10) };
+  // return result; //Math.floor(Math.random(max) * 10) };
+}
+const users = randomUsers();
 const HelpCenterIndex = props => {
   const { data, location } = props;
   const { projects } = data.hasura;
@@ -224,11 +237,16 @@ const HelpCenterIndex = props => {
                           fontSize: '14px',
                         }}
                       >
-                        {bookmarkIcon} {randomNumber()}
+                        {/* pl {project.user_bookmarks.length} {project.user_bookmarks.length > 0
+                          ? `${project.user_bookmarks[0].user.id} `
+                          : 'xx'} */}
+                        <div>{bookmarkIcon}  by 
+                        {randomUsers().map((x, i) =>
                         <img
-                          sx={{ width: '14px', height: '14px', mb: 0 }}
-                          src="https://randomuser.me/api/portraits/men/93.jpg"
+                        sx={{ width: '14px', height: '14px', pl: 1, mb: 0,  }} key={i} 
+                        src={'https://randomuser.me/api/portraits/thumb/men/' + x + '.jpg'}
                         />
+                        )}</div>
                       </section>
                     </div>
                   </div>
