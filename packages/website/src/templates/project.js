@@ -18,66 +18,67 @@ class ProjectTemplate extends React.Component {
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
-        <SEO title={project.title} description={project.description} />
-        <p sx={{ mt: 1, mb: 2, py: 0 }}>
-          <Link
-            to="/"
-            sx={{
-              color: 'breadcrumbLinkTextColor',
-              boxShadow: 'none',
-              fontSize: 1,
-              '&:hover': {
-                color: 'breadcrumbHoverLinkTextColor',
-              },
-            }}
-          >
-            {this.props.data.site.siteMetadata.texts.allCollectionsText}
-          </Link>{' '}
-          <span sx={{ color: 'breadcrumbTextColor', fontSize: 1 }}>
-            &rsaquo;
-          </span>{' '}
-          <span sx={{ color: 'breadcrumbTextColor', fontSize: 1 }}>
-            {project.title}
-          </span>
-        </p>
-        <article
-          sx={{
-            backgroundColor: 'paperBackgroundColor',
-            borderWidth: 1,
-            borderStyle: 'solid',
-            borderColor: 'paperBorderColor',
-            borderRadius: 3,
-            px: [2, 4],
-            py: 2,
-            mb: 6,
-            position: 'relative',
-            zIndex: '3',
-            textDecoration: 'none',
-            overflow: 'hidden',
-            width: '100%',
-            display: 'block',
-            outline: 'none',
-            boxShadow: '0 3px 8px 0 rgba(0,0,0,0.03)',
-            transition:
-              'border .15s linear, transform .15s linear, background-color .15s linear, box-shadow .15s linear, opacity .15s linear, transform .15s linear, box-shadow .15s linear',
-            color: 'articleTextColor',
-          }}
-        >
-          <header sx={{ mb: 3 }}>
-            <h2 sx={{ mt: 4, mb: 1 }}>{project.title}</h2>
-            <p sx={{ my: 3, color: 'articleDescriptionColor' }}>
-              {project.description}
+        {() => (
+          <>
+            <SEO title={project.title} description={project.description} />
+            <p sx={{ mt: 1, mb: 2, py: 0 }}>
+              <Link
+                to="/"
+                sx={{
+                  color: 'breadcrumbLinkTextColor',
+                  boxShadow: 'none',
+                  fontSize: 1,
+                  '&:hover': {
+                    color: 'breadcrumbHoverLinkTextColor',
+                  },
+                }}
+              >
+                {this.props.data.site.siteMetadata.texts.allCollectionsText}
+              </Link>{' '}
+              <span sx={{ color: 'breadcrumbTextColor', fontSize: 1 }}>
+                &rsaquo;
+              </span>{' '}
+              <span sx={{ color: 'breadcrumbTextColor', fontSize: 1 }}>
+                {project.title}
+              </span>
             </p>
-            <a href={project.url} rel="noopener noreferrer" target="_blank">
-              {project.url}
-            </a>
-            <h4 sx={{ mt: 4, mb: 3 }}>Website Preview</h4>
-            <img
-              src={`http://95.217.162.167:8081/${project.id}.png`}
-              alt="Project Site"
-            />
-            ;
-            {/* {article.frontmatter.author && (
+            <article
+              sx={{
+                backgroundColor: 'paperBackgroundColor',
+                borderWidth: 1,
+                borderStyle: 'solid',
+                borderColor: 'paperBorderColor',
+                borderRadius: 3,
+                px: [2, 4],
+                py: 2,
+                mb: 6,
+                position: 'relative',
+                zIndex: '3',
+                textDecoration: 'none',
+                overflow: 'hidden',
+                width: '100%',
+                display: 'block',
+                outline: 'none',
+                boxShadow: '0 3px 8px 0 rgba(0,0,0,0.03)',
+                transition:
+                  'border .15s linear, transform .15s linear, background-color .15s linear, box-shadow .15s linear, opacity .15s linear, transform .15s linear, box-shadow .15s linear',
+                color: 'articleTextColor',
+              }}
+            >
+              <header sx={{ mb: 3 }}>
+                <h2 sx={{ mt: 4, mb: 1 }}>{project.title}</h2>
+                <p sx={{ my: 3, color: 'articleDescriptionColor' }}>
+                  {project.description}
+                </p>
+                <a href={project.url} rel="noopener noreferrer" target="_blank">
+                  {project.url}
+                </a>
+                <h4 sx={{ mt: 4, mb: 3 }}>Website Preview</h4>
+                <img
+                  src={`http://95.217.162.167:8081/${project.id}.png`}
+                  alt="Project Site"
+                />
+                {/* {article.frontmatter.author && (
               <div sx={{ mt: 2, mb: 4, display: 'flex' }}>
                 <div sx={{ display: 'flex', alignItems: 'center' }}>
                   <Image
@@ -166,13 +167,15 @@ class ProjectTemplate extends React.Component {
                 </div>
               </div>
             )} */}
-          </header>
-          {/* <hr sx={{ background: 'hsla(0,0%,0%,0.05)' }} /> */}
-          {/* <section
+              </header>
+              {/* <hr sx={{ background: 'hsla(0,0%,0%,0.05)' }} /> */}
+              {/* <section
             sx={{ pb: 4 }}
             dangerouslySetInnerHTML={{ __html: article.html }}
           /> */}
-        </article>
+            </article>
+          </>
+        )}
       </Layout>
     );
   }

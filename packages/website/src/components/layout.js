@@ -2,10 +2,9 @@
 /* eslint-disable jsx-a11y/no-autofocus, react/jsx-no-target-blank */
 import { jsx } from 'theme-ui';
 import React from 'react';
-import { Link, useStaticQuery, graphql, navigate } from 'gatsby';
+import { useStaticQuery, graphql, navigate } from 'gatsby';
 import { FaMapMarker, FaSearch } from 'react-icons/fa';
-import { useCombobox } from 'downshift';
-import Fuse from 'fuse.js';
+import _ from 'lodash';
 
 import * as icons from '../utils/icons';
 import { rhythm } from '../utils/typography';
@@ -213,12 +212,23 @@ import Logo from './logo';
 //   );
 // }
 
-function SearchInputNew(props) {
-  const [areaCodeText, setAreaCodeText] = React.useState('');
+const SearchInputNew = ({ children, location }) => {
   const [areaCodeFocused, setAreaCodeFocused] = React.useState(false);
-
-  const [searchText, setSearchText] = React.useState('');
   const [searchFocused, setSearchFocused] = React.useState(false);
+  const [search, setSearch] = React.useState({
+    searchText: '',
+    areaCodeText: '',
+  });
+  const [searchDelayed, setSearchDelayed] = React.useState({});
+
+  const rootPath = `${__PATH_PREFIX__}/`;
+
+  const delayed = React.useRef(_.debounce(data => setSearchDelayed(data), 300))
+    .current;
+  const delayedSearch = data => {
+    // setSearch(data);
+    delayed(data);
+  };
 
   const data = useStaticQuery(graphql`
     query LayoutQueryNew {
@@ -253,30 +263,7 @@ function SearchInputNew(props) {
     }
   `);
 
-  const items = data.articles.nodes;
-
-  const fuse = React.useMemo(
-    () =>
-      new Fuse(items, {
-        shouldSort: true,
-        tokenize: true,
-        threshold: 0.6,
-        location: 0,
-        distance: 100,
-        maxPatternLength: 32,
-        minMatchCharLength: 1,
-        keys: [
-          'frontmatter.title',
-          'frontmatter.description',
-          'headings.value',
-        ],
-      }),
-    [items],
-  );
-
-  const [inputItems, setInputItems] = React.useState(data.articles.nodes);
-
-  return (
+  const component = (
     <div
       sx={{
         display: 'flex',
@@ -303,9 +290,15 @@ function SearchInputNew(props) {
         <input
           id="search"
           type="text"
-          value={searchText}
+          // value={search.searchText}
           autoFocus
-          onChange={event => setSearchText(event.target.value)}
+          onChange={event => {
+            if (location.pathname !== rootPath) {
+              navigate(rootPath);
+              return;
+            }
+            delayedSearch({ ...search, searchText: event.target.value });
+          }}
           placeholder={data.site.siteMetadata.texts.searchPlaceholderText}
           autoComplete="off"
           sx={{
@@ -354,12 +347,17 @@ function SearchInputNew(props) {
         <input
           id="areaCode"
           type="text"
-          value={areaCodeText}
+          // value={search.areaCodeText}
           // autoFocus
-          onChange={event =>
-            /^[0-9]{0,5}$/.test(event.target.value) &&
-            setAreaCodeText(event.target.value)
-          }
+          onChange={event => {
+            if (/^[0-9]{0,5}$/.test(event.target.value)) {
+              if (location.pathname !== rootPath) {
+                navigate(rootPath);
+                return;
+              }
+              delayedSearch({ ...search, areaCodeText: event.target.value });
+            }
+          }}
           placeholder="PLZ"
           autoComplete="off"
           sx={{
@@ -390,7 +388,9 @@ function SearchInputNew(props) {
       </div>
     </div>
   );
-}
+
+  return children({ component, ...searchDelayed });
+};
 
 class Layout extends React.Component {
   render() {
@@ -398,43 +398,45 @@ class Layout extends React.Component {
     const rootPath = `${__PATH_PREFIX__}/`;
 
     return (
-      <div>
-        <div
-          sx={{
-            py: 3,
-            color: 'headerText',
-            backgroundColor: 'headerBackground',
-          }}
-        >
-          {location.pathname === rootPath ? (
-            <header
+      <SearchInputNew location={location}>
+        {({ component: searchInput, areaCodeText, searchText }) => (
+          <>
+            <div
               sx={{
-                mx: `auto`,
-                maxWidth: rhythm(30),
-                fontSize: 3,
-                px: [2, 4],
-                pt: 4,
-                pb: 2,
+                py: 3,
+                color: 'headerText',
+                backgroundColor: 'headerBackground',
               }}
             >
-              {/* <Logo color="white" size={['36px', '48px']} />
+              {location.pathname === rootPath ? (
+                <header
+                  sx={{
+                    mx: `auto`,
+                    maxWidth: rhythm(30),
+                    fontSize: 3,
+                    px: [2, 4],
+                    pt: 4,
+                    pb: 2,
+                  }}
+                >
+                  {/* <Logo color="white" size={['36px', '48px']} />
               <p sx={{ pt: 2, pb: 2, mb: 2, mt: 2, fontSize: [2, 3] }}>
                 {description}
               </p> */}
-              <SearchInputNew />
-            </header>
-          ) : (
-            <header
-              sx={{
-                marginLeft: `auto`,
-                marginRight: `auto`,
-                maxWidth: rhythm(30),
-                px: [2, 4],
-                pt: 4,
-                pb: 2,
-              }}
-            >
-              {/* <h3
+                  {searchInput}
+                </header>
+              ) : (
+                <header
+                  sx={{
+                    marginLeft: `auto`,
+                    marginRight: `auto`,
+                    maxWidth: rhythm(30),
+                    px: [2, 4],
+                    pt: 4,
+                    pb: 2,
+                  }}
+                >
+                  {/* <h3
                 sx={{
                   mt: 0,
                   mb: 3,
@@ -456,42 +458,42 @@ class Layout extends React.Component {
                 </Link>
               </h3>
               {location.pathname === rootPath && <p>{description}</p>} */}
-              <SearchInputNew />
-            </header>
-          )}
-        </div>
-        <div
-          style={{
-            background: '#F3F5F7',
-          }}
-        >
-          <main
-            sx={{
-              mx: `auto`,
-              maxWidth: rhythm(40),
-              px: [2, 4],
-              py: [3],
-            }}
-          >
-            {children}
-          </main>
-        </div>
-        <footer
-          sx={{
-            marginLeft: `auto`,
-            marginRight: `auto`,
-            maxWidth: rhythm(30),
-            padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
-            textAlign: 'center',
-            color: 'footerTextColor',
-            fontSize: 1,
-          }}
-        >
-          <Logo color="currentColor" size="36px" />
-          <div sx={{ mt: 2 }}>
-            Built with
-            {` `}
-            {/*
+                  {searchInput}
+                </header>
+              )}
+            </div>
+            <div
+              style={{
+                background: '#F3F5F7',
+              }}
+            >
+              <main
+                sx={{
+                  mx: `auto`,
+                  maxWidth: rhythm(40),
+                  px: [2, 4],
+                  py: [3],
+                }}
+              >
+                {children({ areaCodeText, searchText })}
+              </main>
+            </div>
+            <footer
+              sx={{
+                marginLeft: `auto`,
+                marginRight: `auto`,
+                maxWidth: rhythm(30),
+                padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
+                textAlign: 'center',
+                color: 'footerTextColor',
+                fontSize: 1,
+              }}
+            >
+              <Logo color="currentColor" size="36px" />
+              <div sx={{ mt: 2 }}>
+                Built with
+                {` `}
+                {/*
               PLEASE DO NOT REMOVE THIS LINK.
 
               A lot of unpaid time is spent on making and maintaining the
@@ -500,22 +502,24 @@ class Layout extends React.Component {
 
               You are amazing for keeping it here, thank you.
             */}
-            <a
-              href="https://help.dferber.de"
-              target="_blank"
-              sx={{
-                color: 'footerTextColor',
-                textDecoration: 'underline',
-                '&:hover': {
-                  color: 'footerTextHoverColor',
-                },
-              }}
-            >
-              Dom's Help Center
-            </a>
-          </div>
-        </footer>
-      </div>
+                <a
+                  href="https://help.dferber.de"
+                  target="_blank"
+                  sx={{
+                    color: 'footerTextColor',
+                    textDecoration: 'underline',
+                    '&:hover': {
+                      color: 'footerTextHoverColor',
+                    },
+                  }}
+                >
+                  Dom's Help Center
+                </a>
+              </div>
+            </footer>
+          </>
+        )}
+      </SearchInputNew>
     );
   }
 }
