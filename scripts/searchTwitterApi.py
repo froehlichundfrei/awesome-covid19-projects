@@ -18,7 +18,7 @@ def storeCredentials():
 # storeCredentials()
 
 
-def getSiteUrlsFromHasura(siteObjects):
+def searchTwitter(siteObjects):
     client = GraphqlClient(endpoint='http://95.217.162.167:8080/v1/graphql')
 
     query = """
@@ -87,42 +87,4 @@ def getSiteUrlsFromHasura(siteObjects):
     return siteObjects
 
 
-getSiteUrlsFromHasura(siteObjects)
-
-"""
-def searchTwitter():
-
-    with open("/Users/philipp.buck/Desktop/twitter_credentials.json", "r") as file:
-        creds = json.load(file)
-
-    python_tweets = Twython(creds['CONSUMER_KEY'], creds['CONSUMER_SECRET'])
-
-    query = {'q': 'wirhelfen.eu',
-             'result_type': 'mixed',
-             'count': 10,
-             'lang': 'de',
-             }
-    results = python_tweets.search(**query)
-    print(results)
-    return results
-
-# searchTwitter()
-
-
-def getTweet():
-
-    with open("/Users/philipp.buck/Desktop/twitter_credentials.json", "r") as file:
-        creds = json.load(file)
-
-    python_tweets = Twython(creds['CONSUMER_KEY'], creds['CONSUMER_SECRET'])
-
-    # query = {"ids": "1240311698365571075"}
-    # results = python_tweets.search(**query)
-    results = python_tweets.show_status(id=1240311698365571075)
-    print(results["retweet_count"])
-    print(results["favorite_count"])
-    return results
-
-
-# getTweet()
-"""
+searchTwitter(siteObjects)
