@@ -3,9 +3,7 @@
 // access the icons as <Icons[icon] /> without adding all
 // possible icons to the bundle.
 // https://react-icons.netlify.com/#/
-export {
-  IoLogoTwitter
-} from "react-icons/io";
+export { IoLogoTwitter } from 'react-icons/io';
 
 export {
   // people --------------------------------------------------------------------
@@ -122,4 +120,5 @@ export {
   FaRegListAlt,
   // New
   FaFire,
+  FaMapMarker,
 } from 'react-icons/fa';

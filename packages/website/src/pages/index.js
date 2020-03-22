@@ -55,18 +55,22 @@ const HelpCenterIndex = props => {
     if (areaCodeText) {
       filtered = new Fuse(filtered, {
         shouldSort: true,
-        tokenize: true,
-        threshold: 0.6,
-        location: 0,
-        distance: 100,
-        maxPatternLength: 32,
-        minMatchCharLength: 3,
         keys: ['areaCode'],
       }).search(areaCodeText);
+      // add all areaCodes
+      filtered = [
+        ...filtered,
+        ...projects.filter(({ areaCode }) => areaCode === 'all'),
+      ];
     }
     return filtered;
   };
 
+  const areaCodeIcon = jsx(
+    icons.FaMapMarker,
+    { sx: { color: 'iconColor' }, size: '14px' },
+    null,
+  );
   const bookmarkIcon = jsx(
     icons.FaBookmark,
     { sx: { color: 'iconColor' }, size: '14px' },
@@ -196,7 +200,8 @@ const HelpCenterIndex = props => {
                           fontSize: '14px',
                         }}
                       >
-                        Ratings
+                        {areaCodeIcon}
+                        {project.areaCode ? ` ${project.areaCode}` : ' all'}
                       </section>
                     </div>
                     <div
@@ -418,11 +423,15 @@ export const pageQuery = graphql`
       }
     }
     hasura {
-      projects(order_by: { twitterActions: desc }) {
+      projects(
+        where: { title: { _neq: "not set" } }
+        order_by: { twitterActions: desc }
+      ) {
         id
         title
         description
         twitterActions
+        areaCode
         user_bookmarks {
           user {
             id

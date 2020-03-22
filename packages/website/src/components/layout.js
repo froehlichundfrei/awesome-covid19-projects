@@ -224,7 +224,7 @@ const SearchInputNew = ({ children, location, site }) => {
 
   const rootPath = `${__PATH_PREFIX__}/`;
 
-  const delayed = React.useRef(_.debounce(data => setSearchDelayed(data), 300))
+  const delayed = React.useRef(_.debounce(data => setSearchDelayed(data), 150))
     .current;
   const delayedSearch = data => {
     // setSearch(data);
