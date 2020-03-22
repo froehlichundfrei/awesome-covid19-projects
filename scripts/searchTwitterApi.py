@@ -39,28 +39,27 @@ def searchTwitter(siteObjects):
             tweetRankingCount = tweetDetails["retweet_count"] + \
                 tweetDetails["favorite_count"]
             print("Ranking Count: ", tweetRankingCount)
-            # sleep(100)
         except:
             print("not working")
-        try:
-            client = GraphqlClient(
-                endpoint='http://95.217.162.167:8080/v1/graphql')
-            variables = {
-                "url": siteObjectProperties["siteUrl"], "twitterActions": tweetRankingCount}
-            updateQuery = """
-                mutation updateProject($url: String, $twitterActions: Int) {
-                    update_projects(where: {url: {_eq: $url}}, _set: {twitterActions: $twitterActions}) {
-                        affected_rows
-                    }
-                }
-            """
-            graphQlResult = client.execute(updateQuery, variables)
-            print(graphQlResult)
-        except:
-            print("GraphQL Import Error")
-            print("Parsing Error - Ignore URL: ", hasuraSiteEntrie["url"])
-        siteObjects.append(siteObjectProperties)
+        # try:
+        #     client = GraphqlClient(
+        #         endpoint='http://95.217.162.167:8080/v1/graphql')
+        #     variables = {
+        #         "url": siteObjectProperties["siteUrl"], "twitterActions": tweetRankingCount}
+        #     updateQuery = """
+        #         mutation updateProject($url: String, $twitterActions: Int) {
+        #             update_projects(where: {url: {_eq: $url}}, _set: {twitterActions: $twitterActions}) {
+        #                 affected_rows
+        #             }
+        #         }
+        #     """
+        #     graphQlResult = client.execute(updateQuery, variables)
+        #     print(graphQlResult)
+        # except:
+        #     print("GraphQL Import Error")
+        #     print("Parsing Error - Ignore URL: ", hasuraSiteEntrie["url"])
+        # siteObjects.append(siteObjectProperties)
     return siteObjects
 
 
-# searchTwitter(siteObjects)
+searchTwitter(siteObjects)
