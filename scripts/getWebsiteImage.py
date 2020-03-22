@@ -8,7 +8,7 @@ from minio.error import ResponseError
 minioClient = Minio('95.217.162.167:9000',
                   access_key='minio',
                   secret_key='awsomeCov19',
-                  secure=false)
+                  secure=False)
 async def main(url, imageName):
     browser = await launch(args=['--no-sandbox'])
     page = await browser.newPage()
