@@ -39,7 +39,7 @@ for hasuraSiteEntrie in hasuraSiteEntries["data"]["projects"]:
     try:
       minioClient.fput_object('webimages', imageName, imageName)
     except ResponseError as err:
-      print(err)
+      print(f'Blub: {err}')
 
 
 
