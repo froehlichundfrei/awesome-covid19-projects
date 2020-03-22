@@ -25,7 +25,7 @@ def searchTwitter(siteObjects):
         python_tweets = Twython(
             os.getenv('CONSUMER_KEY'), os.getenv('CONSUMER_SECRET'))
         query = {'q': siteObjectProperties["siteUrl"],
-                 'result_type': 'popular',
+                 'result_type': 'mixed',
                  'count': 10,
                  'lang': 'de',
                  }
