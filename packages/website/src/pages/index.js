@@ -405,6 +405,13 @@ export const pageQuery = graphql`
         title
         description
         twitterActions
+        user_bookmarks {
+          user {
+            id
+            first_name
+            last_name
+          }
+        }
       }
     }
   }
