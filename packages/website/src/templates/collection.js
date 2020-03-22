@@ -95,175 +95,184 @@ class CollectionTemplate extends React.Component {
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
-        <SEO title={collection.title} description={collection.description} />
-        <p sx={{ mt: 1, mb: 2, py: 0 }}>
-          <Link
-            to="/"
-            sx={{
-              color: 'breadcrumbLinkTextColor',
-              boxShadow: 'none',
-              fontSize: 1,
-              '&:hover': {
-                color: 'breadcrumbHoverLinkTextColor',
-              },
-            }}
-          >
-            {this.props.data.site.siteMetadata.texts.allCollectionsText}
-          </Link>{' '}
-          <span sx={{ color: 'breadcrumbTextColor', fontSize: 1 }}>
-            &rsaquo;
-          </span>{' '}
-          <span sx={{ color: 'breadcrumbTextColor', fontSize: 1 }}>
-            {collection.title}
-          </span>
-        </p>
-        <article
-          sx={{
-            backgroundColor: 'collectionBackgroundColor',
-            borderColor: 'transparent',
-            borderStyle: 'solid',
-            borderRadius: 2,
-            px: [2, 4],
-            py: 2,
-            mb: 6,
-          }}
-        >
-          <div
-            sx={{
-              display: 'flex',
-              flexDirection: ['column', 'row'],
-              pt: [0, 3],
-            }}
-          >
-            <div
-              sx={{
-                flex: 1,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: ['flex-start', 'center'],
-                py: [3, 0],
-              }}
-            >
-              {icon}
-            </div>
-            <div sx={{ flex: 4 }}>
-              <header>
-                <h2
-                  sx={{
-                    my: 0,
-                    py: 0,
-                    color: 'collectionHeading',
-                  }}
-                >
-                  {collection.title}
-                </h2>
-              </header>
-              <p
+        {() => (
+          <>
+            <SEO
+              title={collection.title}
+              description={collection.description}
+            />
+            <p sx={{ mt: 1, mb: 2, py: 0 }}>
+              <Link
+                to="/"
                 sx={{
-                  pt: 2,
-                  pb: 0,
-                  mb: 0,
-                  color: 'collectionDescription',
+                  color: 'breadcrumbLinkTextColor',
+                  boxShadow: 'none',
+                  fontSize: 1,
+                  '&:hover': {
+                    color: 'breadcrumbHoverLinkTextColor',
+                  },
                 }}
               >
-                {collection.description}
-              </p>
-              <small sx={{ color: 'collectionDescription' }}>
-                {articles.length}{' '}
-                {(() => {
-                  switch (articles.length) {
-                    case 0:
-                      return this.props.data.site.siteMetadata.texts
-                        .articlesInCollectionZeroText;
-                    case 1:
-                      return this.props.data.site.siteMetadata.texts
-                        .articlesInCollectionOneText;
-                    case 2:
-                      return this.props.data.site.siteMetadata.texts
-                        .articlesInCollectionTwoText;
-                    default:
-                      return this.props.data.site.siteMetadata.texts
-                        .articlesInCollectionMultipleText;
-                  }
-                })()}
-              </small>
-            </div>
-          </div>
-          <ul sx={{ ml: 0, mt: 5, listStyleType: 'none' }}>
-            {(Array.isArray(collection.articles)
-              ? collection.articles
-              : []
-            ).map((articleNode, index) => {
-              // This happens when a collection points to an article file which
-              // does not exist
-              if (
-                !articleNode ||
-                !articleNode.file ||
-                !articleNode.file.childMarkdownRemark
-              ) {
-                return null;
-              }
-
-              const article = articleNode.file.childMarkdownRemark;
-              if (!article) return null;
-              return (
-                <li key={article.fields.slug} sx={{ my: 0, py: 0 }}>
-                  <Card
-                    to={article.fields.slug}
-                    title={article.frontmatter.title}
-                    description={article.frontmatter.description}
-                    hasPredecessor={index > 0}
-                    hasSuccessor={index < collection.articles.length - 1}
-                  />
-                </li>
-              );
-            })}
-          </ul>
-          {Array.isArray(collection.sections) &&
-            collection.sections.map(section => {
-              const articlesOfSection = Array.isArray(section.articles)
-                ? section.articles
-                    .filter(({ file }) => file)
-                    .map(({ file }) => file.childMarkdownRemark)
-                : [];
-
-              // skip sections without articles
-              if (articlesOfSection.length === 0) return null;
-
-              return (
-                <div key={section.id}>
-                  {/* Id must be set for navigation */}
-                  <a
-                    id={slug(section.id)}
-                    href={`#${slug(section.id)}`}
+                {this.props.data.site.siteMetadata.texts.allCollectionsText}
+              </Link>{' '}
+              <span sx={{ color: 'breadcrumbTextColor', fontSize: 1 }}>
+                &rsaquo;
+              </span>{' '}
+              <span sx={{ color: 'breadcrumbTextColor', fontSize: 1 }}>
+                {collection.title}
+              </span>
+            </p>
+            <article
+              sx={{
+                backgroundColor: 'collectionBackgroundColor',
+                borderColor: 'transparent',
+                borderStyle: 'solid',
+                borderRadius: 2,
+                px: [2, 4],
+                py: 2,
+                mb: 6,
+              }}
+            >
+              <div
+                sx={{
+                  display: 'flex',
+                  flexDirection: ['column', 'row'],
+                  pt: [0, 3],
+                }}
+              >
+                <div
+                  sx={{
+                    flex: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: ['flex-start', 'center'],
+                    py: [3, 0],
+                  }}
+                >
+                  {icon}
+                </div>
+                <div sx={{ flex: 4 }}>
+                  <header>
+                    <h2
+                      sx={{
+                        my: 0,
+                        py: 0,
+                        color: 'collectionHeading',
+                      }}
+                    >
+                      {collection.title}
+                    </h2>
+                  </header>
+                  <p
                     sx={{
-                      cursor: 'default',
-                      ':hover': { textDecoration: 'none' },
+                      pt: 2,
+                      pb: 0,
+                      mb: 0,
+                      color: 'collectionDescription',
                     }}
                   >
-                    <h3 sx={{ fontSize: 3, mb: 3, color: 'initial' }}>
-                      {section.title}
-                    </h3>
-                  </a>
-                  <ul sx={{ ml: 0, listStyleType: 'none' }}>
-                    {articlesOfSection.map((article, index) =>
-                      article ? (
-                        <li key={article.fields.slug} sx={{ my: 0, py: 0 }}>
-                          <Card
-                            to={article.fields.slug}
-                            title={article.frontmatter.title}
-                            description={article.frontmatter.description}
-                            hasPredecessor={index > 0}
-                            hasSuccessor={index < articlesOfSection.length - 1}
-                          />
-                        </li>
-                      ) : null,
-                    )}
-                  </ul>
+                    {collection.description}
+                  </p>
+                  <small sx={{ color: 'collectionDescription' }}>
+                    {articles.length}{' '}
+                    {(() => {
+                      switch (articles.length) {
+                        case 0:
+                          return this.props.data.site.siteMetadata.texts
+                            .articlesInCollectionZeroText;
+                        case 1:
+                          return this.props.data.site.siteMetadata.texts
+                            .articlesInCollectionOneText;
+                        case 2:
+                          return this.props.data.site.siteMetadata.texts
+                            .articlesInCollectionTwoText;
+                        default:
+                          return this.props.data.site.siteMetadata.texts
+                            .articlesInCollectionMultipleText;
+                      }
+                    })()}
+                  </small>
                 </div>
-              );
-            })}
-        </article>
+              </div>
+              <ul sx={{ ml: 0, mt: 5, listStyleType: 'none' }}>
+                {(Array.isArray(collection.articles)
+                  ? collection.articles
+                  : []
+                ).map((articleNode, index) => {
+                  // This happens when a collection points to an article file which
+                  // does not exist
+                  if (
+                    !articleNode ||
+                    !articleNode.file ||
+                    !articleNode.file.childMarkdownRemark
+                  ) {
+                    return null;
+                  }
+
+                  const article = articleNode.file.childMarkdownRemark;
+                  if (!article) return null;
+                  return (
+                    <li key={article.fields.slug} sx={{ my: 0, py: 0 }}>
+                      <Card
+                        to={article.fields.slug}
+                        title={article.frontmatter.title}
+                        description={article.frontmatter.description}
+                        hasPredecessor={index > 0}
+                        hasSuccessor={index < collection.articles.length - 1}
+                      />
+                    </li>
+                  );
+                })}
+              </ul>
+              {Array.isArray(collection.sections) &&
+                collection.sections.map(section => {
+                  const articlesOfSection = Array.isArray(section.articles)
+                    ? section.articles
+                        .filter(({ file }) => file)
+                        .map(({ file }) => file.childMarkdownRemark)
+                    : [];
+
+                  // skip sections without articles
+                  if (articlesOfSection.length === 0) return null;
+
+                  return (
+                    <div key={section.id}>
+                      {/* Id must be set for navigation */}
+                      <a
+                        id={slug(section.id)}
+                        href={`#${slug(section.id)}`}
+                        sx={{
+                          cursor: 'default',
+                          ':hover': { textDecoration: 'none' },
+                        }}
+                      >
+                        <h3 sx={{ fontSize: 3, mb: 3, color: 'initial' }}>
+                          {section.title}
+                        </h3>
+                      </a>
+                      <ul sx={{ ml: 0, listStyleType: 'none' }}>
+                        {articlesOfSection.map((article, index) =>
+                          article ? (
+                            <li key={article.fields.slug} sx={{ my: 0, py: 0 }}>
+                              <Card
+                                to={article.fields.slug}
+                                title={article.frontmatter.title}
+                                description={article.frontmatter.description}
+                                hasPredecessor={index > 0}
+                                hasSuccessor={
+                                  index < articlesOfSection.length - 1
+                                }
+                              />
+                            </li>
+                          ) : null,
+                        )}
+                      </ul>
+                    </div>
+                  );
+                })}
+            </article>
+          </>
+        )}
       </Layout>
     );
   }
