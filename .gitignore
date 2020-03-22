@@ -12,6 +12,7 @@ Thumbs.db
 sftp-config.json
 .tmp/
 .vscode/chrome
+.vscode/.ropeproject
 
 # Logs
 logs
@@ -32,3 +33,6 @@ node_modules
 # Extentions
 *.pyc
 *.csv*
+
+# Py Virtual Env
+scripts/venv_*
