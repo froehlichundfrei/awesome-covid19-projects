@@ -2,9 +2,10 @@
 /* eslint-disable jsx-a11y/no-autofocus, react/jsx-no-target-blank */
 import { jsx } from 'theme-ui';
 import React from 'react';
-import { useStaticQuery, graphql, navigate } from 'gatsby';
+import { useStaticQuery, graphql, navigate, Link } from 'gatsby';
 import { FaMapMarker, FaSearch } from 'react-icons/fa';
 import _ from 'lodash';
+import Image from 'gatsby-image';
 
 import * as icons from '../utils/icons';
 import { rhythm } from '../utils/typography';
@@ -212,7 +213,7 @@ import Logo from './logo';
 //   );
 // }
 
-const SearchInputNew = ({ children, location }) => {
+const SearchInputNew = ({ children, location, site }) => {
   const [areaCodeFocused, setAreaCodeFocused] = React.useState(false);
   const [searchFocused, setSearchFocused] = React.useState(false);
   const [search, setSearch] = React.useState({
@@ -230,39 +231,6 @@ const SearchInputNew = ({ children, location }) => {
     delayed(data);
   };
 
-  const data = useStaticQuery(graphql`
-    query LayoutQueryNew {
-      site {
-        siteMetadata {
-          title
-          texts {
-            searchPlaceholderText
-          }
-        }
-      }
-      articles: allMarkdownRemark {
-        nodes {
-          id
-          fields {
-            slug
-            collection {
-              icon
-            }
-          }
-          frontmatter {
-            title
-            description
-          }
-          headings {
-            # depth
-            value
-          }
-          # excerpt(format: PLAIN)
-        }
-      }
-    }
-  `);
-
   const component = (
     <div
       sx={{
@@ -270,7 +238,7 @@ const SearchInputNew = ({ children, location }) => {
         padding: '30px',
       }}
     >
-      <div sx={{ position: 'relative', flex: '60%' }}>
+      <div sx={{ position: 'relative', flex: '75%' }}>
         <label
           htmlFor="search"
           sx={{
@@ -299,7 +267,7 @@ const SearchInputNew = ({ children, location }) => {
             }
             delayedSearch({ ...search, searchText: event.target.value });
           }}
-          placeholder={data.site.siteMetadata.texts.searchPlaceholderText}
+          placeholder={site.siteMetadata.texts.searchPlaceholderText}
           autoComplete="off"
           sx={{
             backgroundColor: 'rgba(255,255,255,0.2)',
@@ -327,7 +295,7 @@ const SearchInputNew = ({ children, location }) => {
           }}
         />
       </div>
-      <div sx={{ position: 'relative', flex: '30%', marginLeft: '20px' }}>
+      <div sx={{ position: 'relative', flex: '25%', marginLeft: '20px' }}>
         <label
           htmlFor="areaCode"
           sx={{
@@ -392,54 +360,79 @@ const SearchInputNew = ({ children, location }) => {
   return children({ component, ...searchDelayed });
 };
 
-class Layout extends React.Component {
-  render() {
-    const { location, children, description } = this.props;
-    const rootPath = `${__PATH_PREFIX__}/`;
+const Layout = props => {
+  const { location, children, description } = props;
+  const rootPath = `${__PATH_PREFIX__}/`;
 
-    return (
-      <SearchInputNew location={location}>
-        {({ component: searchInput, areaCodeText, searchText }) => (
-          <>
-            <div
-              sx={{
-                py: 3,
-                color: 'headerText',
-                backgroundColor: 'headerBackground',
-              }}
-            >
-              {location.pathname === rootPath ? (
-                <header
-                  sx={{
-                    mx: `auto`,
-                    maxWidth: rhythm(30),
-                    fontSize: 3,
-                    px: [2, 4],
-                    pt: 4,
-                    pb: 2,
-                  }}
-                >
-                  {/* <Logo color="white" size={['36px', '48px']} />
+  const data = useStaticQuery(graphql`
+    query LayoutQuery {
+      site {
+        siteMetadata {
+          title
+          texts {
+            searchPlaceholderText
+          }
+        }
+      }
+      file(relativePath: { eq: "logo.png" }) {
+        childImageSharp {
+          # Specify the image processing specifications right in the query.
+          # Makes it trivial to update as your page's design changes.
+          # fixed(width: 125, height: 125) {
+          fixed(width: 250) {
+            ...GatsbyImageSharpFixed
+          }
+        }
+      }
+    }
+  `);
+
+  return (
+    <SearchInputNew location={location} site={data.site}>
+      {({ component: searchInput, areaCodeText, searchText }) => (
+        <>
+          <div
+            sx={{
+              py: 3,
+              color: 'headerText',
+              backgroundColor: 'headerBackground',
+            }}
+          >
+            {location.pathname === rootPath ? (
+              <header
+                sx={{
+                  mx: `auto`,
+                  maxWidth: rhythm(30),
+                  fontSize: 3,
+                  px: [2, 4],
+                  pt: 4,
+                  pb: 2,
+                }}
+              >
+                {/* <Logo color="white" size={['36px', '48px']} />
               <p sx={{ pt: 2, pb: 2, mb: 2, mt: 2, fontSize: [2, 3] }}>
                 {description}
               </p> */}
-                  {searchInput}
-                </header>
-              ) : (
-                <header
-                  sx={{
-                    marginLeft: `auto`,
-                    marginRight: `auto`,
-                    maxWidth: rhythm(30),
-                    px: [2, 4],
-                    pt: 4,
-                    pb: 2,
+                <Image
+                  fixed={data.file.childImageSharp.fixed}
+                  alt="Hilfinder Logo"
+                  style={{
+                    display: 'block',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
                   }}
-                >
-                  {/* <h3
+                />
+                {searchInput}
+              </header>
+            ) : (
+              <header
                 sx={{
-                  mt: 0,
-                  mb: 3,
+                  marginLeft: `auto`,
+                  marginRight: `auto`,
+                  maxWidth: rhythm(30),
+                  px: [2, 4],
+                  pt: 4,
+                  pb: 2,
                 }}
               >
                 <Link
@@ -454,46 +447,52 @@ class Layout extends React.Component {
                   }}
                   to="/"
                 >
-                  <Logo color="white" size={['36px', '48px']} />
+                  <Image
+                    fixed={data.file.childImageSharp.fixed}
+                    alt="Hilfinder Logo"
+                    style={{
+                      display: 'block',
+                      marginLeft: 'auto',
+                      marginRight: 'auto',
+                    }}
+                  />
                 </Link>
-              </h3>
-              {location.pathname === rootPath && <p>{description}</p>} */}
-                  {searchInput}
-                </header>
-              )}
-            </div>
-            <div
-              style={{
-                background: '#F3F5F7',
-              }}
-            >
-              <main
-                sx={{
-                  mx: `auto`,
-                  maxWidth: rhythm(40),
-                  px: [2, 4],
-                  py: [3],
-                }}
-              >
-                {children({ areaCodeText, searchText })}
-              </main>
-            </div>
-            <footer
+                {searchInput}
+              </header>
+            )}
+          </div>
+          <div
+            style={{
+              background: '#F3F5F7',
+            }}
+          >
+            <main
               sx={{
-                marginLeft: `auto`,
-                marginRight: `auto`,
-                maxWidth: rhythm(30),
-                padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
-                textAlign: 'center',
-                color: 'footerTextColor',
-                fontSize: 1,
+                mx: `auto`,
+                maxWidth: rhythm(40),
+                px: [2, 4],
+                py: [3],
               }}
             >
-              <Logo color="currentColor" size="36px" />
-              <div sx={{ mt: 2 }}>
-                Built with
-                {` `}
-                {/*
+              {children({ areaCodeText, searchText })}
+            </main>
+          </div>
+          <footer
+            sx={{
+              marginLeft: `auto`,
+              marginRight: `auto`,
+              maxWidth: rhythm(30),
+              padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
+              textAlign: 'center',
+              color: 'footerTextColor',
+              fontSize: 1,
+            }}
+          >
+            <Logo color="currentColor" size="36px" />
+            <div sx={{ mt: 2 }}>
+              Built with
+              {` `}
+              {/*
               PLEASE DO NOT REMOVE THIS LINK.
 
               A lot of unpaid time is spent on making and maintaining the
@@ -502,26 +501,25 @@ class Layout extends React.Component {
 
               You are amazing for keeping it here, thank you.
             */}
-                <a
-                  href="https://help.dferber.de"
-                  target="_blank"
-                  sx={{
-                    color: 'footerTextColor',
-                    textDecoration: 'underline',
-                    '&:hover': {
-                      color: 'footerTextHoverColor',
-                    },
-                  }}
-                >
-                  Dom's Help Center
-                </a>
-              </div>
-            </footer>
-          </>
-        )}
-      </SearchInputNew>
-    );
-  }
-}
+              <a
+                href="https://help.dferber.de"
+                target="_blank"
+                sx={{
+                  color: 'footerTextColor',
+                  textDecoration: 'underline',
+                  '&:hover': {
+                    color: 'footerTextHoverColor',
+                  },
+                }}
+              >
+                Dom's Help Center
+              </a>
+            </div>
+          </footer>
+        </>
+      )}
+    </SearchInputNew>
+  );
+};
 
 export default Layout;
