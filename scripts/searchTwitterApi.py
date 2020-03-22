@@ -1,23 +1,24 @@
 import json
 from twython import Twython
 from python_graphql_client import GraphqlClient
+import os
 
 siteObjects = []
 
 
-def storeCredentials():
-    credentials = {}
-    credentials['CONSUMER_KEY'] = ""
-    credentials['CONSUMER_SECRET'] = ""
-    credentials['ACCESS_TOKEN'] = ""
-    credentials['ACCESS_SECRET'] = ""
+# def storeCredentials():
+#     credentials = {}
+#     credentials['CONSUMER_KEY'] = ""
+#     credentials['CONSUMER_SECRET'] = ""
+#     credentials['ACCESS_TOKEN'] = ""
+#     credentials['ACCESS_SECRET'] = ""
 
-    with open("/Users/philipp.buck/Desktop/twitter_credentials.json", "w") as file:
-        json.dump(credentials, file)
+#     with open("/Users/philipp.buck/Desktop/twitter_credentials.json", "w") as file:
+#         json.dump(credentials, file)
 
 # storeCredentials()
 
-
+print(os.getenv('CONSUMER_KEY'), os.getenv('CONSUMER_SECRET'))
 def searchTwitter(siteObjects):
     client = GraphqlClient(endpoint='http://95.217.162.167:8080/v1/graphql')
 
@@ -39,11 +40,11 @@ def searchTwitter(siteObjects):
         # try:
         siteObjectProperties["siteUrl"] = hasuraSiteEntrie["url"]
 
-        with open("/Users/philipp.buck/Desktop/twitter_credentials.json", "r") as file:
-            creds = json.load(file)
+        # with open("/Users/philipp.buck/Desktop/twitter_credentials.json", "r") as file:
+        #     creds = json.load(file)
 
         python_tweets = Twython(
-            creds['CONSUMER_KEY'], creds['CONSUMER_SECRET'])
+            os.getenv('CONSUMER_KEY'), os.getenv('CONSUMER_SECRET'))
 
         query = {'q': siteObjectProperties["siteUrl"],
                  'result_type': 'popular',
@@ -87,4 +88,4 @@ def searchTwitter(siteObjects):
     return siteObjects
 
 
-searchTwitter(siteObjects)
+# searchTwitter(siteObjects)
