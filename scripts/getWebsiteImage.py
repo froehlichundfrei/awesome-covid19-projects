@@ -33,10 +33,10 @@ siteObject = {}
 for hasuraSiteEntrie in hasuraSiteEntries["data"]["projects"]:
     url = hasuraSiteEntrie["url"]
     imageName = str(hasuraSiteEntrie["id"]) + ".png"
-    print(url)
-    print(imageName)
     asyncio.get_event_loop().run_until_complete(main(url, imageName))
     try:
+      print(url)
+      print(imageName)
       minioClient.fput_object('webimages', imageName, imageName)
     except:
       print('ignore every fucking error')
