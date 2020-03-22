@@ -36,23 +36,22 @@ def getSiteUrlsFromHasura(siteObjects):
 
     for hasuraSiteEntrie in hasuraSiteEntries["data"]["projects"]:
         siteObjectProperties = {}
+        # try:
+        siteObjectProperties["siteUrl"] = hasuraSiteEntrie["url"]
+
+        with open("/Users/philipp.buck/Desktop/twitter_credentials.json", "r") as file:
+            creds = json.load(file)
+
+        python_tweets = Twython(
+            creds['CONSUMER_KEY'], creds['CONSUMER_SECRET'])
+
+        query = {'q': siteObjectProperties["siteUrl"],
+                 'result_type': 'popular',
+                 'count': 10,
+                 'lang': 'de',
+                 }
+        results = python_tweets.search(**query)
         try:
-            siteObjectProperties["siteUrl"] = hasuraSiteEntrie["url"]
-
-            with open("/Users/philipp.buck/Desktop/twitter_credentials.json", "r") as file:
-                creds = json.load(file)
-
-            python_tweets = Twython(
-                creds['CONSUMER_KEY'], creds['CONSUMER_SECRET'])
-
-            query = {'q': siteObjectProperties["siteUrl"],
-                     'result_type': 'mixed',
-                     'count': 10,
-                     'lang': 'de',
-                     }
-            results = python_tweets.search(**query)
-            print(results)
-
             tweetId = results["statuses"][0]["id"]
             print(siteObjectProperties["siteUrl"])
             tweetDetails = python_tweets.show_status(id=tweetId)
@@ -60,26 +59,28 @@ def getSiteUrlsFromHasura(siteObjects):
             print("Like Count: ", tweetDetails["favorite_count"])
             tweetRankingCount = tweetDetails["retweet_count"] + \
                 tweetDetails["favorite_count"]
-            sleep(100)
-
-            try:
-                client = GraphqlClient(
-                    endpoint='http://95.217.162.167:8080/v1/graphql')
-                variables = {
-                    "url": siteObjectProperties["siteUrl"], "twitterActions": tweetRankingCount}
-                updateQuery = """
-                    mutation updateProject($url: String, $twitterActions: Number) {
-                        update_projects(where: {url: {_eq: $url}}, _set: {twitterActions: $twitterActions}) {
-                            affected_rows
-                        }
-                    }
-                """
-                graphQlResult = client.execute(insertQuery, variables)
-                print(graphQlResult)
-            except:
-                print("GraphQL Import Error: ", graphQlResult)
-
+            print("Ranking Count: ", tweetRankingCount)
+            # sleep(100)
         except:
+            print("not working")
+        try:
+            client = GraphqlClient(
+                endpoint='http://95.217.162.167:8080/v1/graphql')
+            variables = {
+                "url": siteObjectProperties["siteUrl"], "twitterActions": tweetRankingCount}
+            updateQuery = """
+                mutation updateProject($url: String, $twitterActions: Int) {
+                    update_projects(where: {url: {_eq: $url}}, _set: {twitterActions: $twitterActions}) {
+                        affected_rows
+                    }
+                }
+            """
+            graphQlResult = client.execute(updateQuery, variables)
+            print(graphQlResult)
+        except:
+            print("GraphQL Import Error")
+
+        # except:
             print("Parsing Error - Ignore URL: ", hasuraSiteEntrie["url"])
         siteObjects.append(siteObjectProperties)
 
