@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: `Awesome Covid19 Projects`,
-    author: `TBD`,
+    title: `Hilfinder - Hilfe in deiner Nähe`,
+    author: `Team Hilfinder`,
     // You'd normally use a description like
     // "Advice and answers by the MyCompany-Team"
     description: ``,
@@ -71,6 +71,8 @@ module.exports = {
         ],
       },
     },
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
     {
       resolve: 'gatsby-source-graphql',
       options: {
@@ -79,8 +81,6 @@ module.exports = {
         url: `http://95.217.162.167:8080/v1/graphql`,
       },
     },
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
     // {
     //   resolve: `gatsby-plugin-google-analytics`,
     //   options: {
