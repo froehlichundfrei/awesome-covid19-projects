@@ -7,8 +7,8 @@ from minio.error import ResponseError
 # python3 -m pip install -U git+https://github.com/miyakogi/pyppeteer.git@dev
 minioClient = Minio('95.217.162.167:9000',
                   access_key='minio',
-                  secret_key='awsomeCov19')
-
+                  secret_key='awsomeCov19',
+                  secure=False)
 async def main(url, imageName):
     browser = await launch(args=['--no-sandbox'])
     page = await browser.newPage()
