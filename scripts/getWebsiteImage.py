@@ -34,7 +34,7 @@ for hasuraSiteEntrie in hasuraSiteEntries["data"]["projects"]:
     url = hasuraSiteEntrie["url"]
     imageName = str(hasuraSiteEntrie["id"]) + ".png"
     try:
-      print(minioClient.fput_object('webimages', imagename, imagename))
+      print(minioClient.fput_object('webimages', imageName, imageName))
     except ResponseError as err:
       print(err)
     print(url)
