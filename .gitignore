@@ -32,3 +32,6 @@ node_modules
 # Extentions
 *.pyc
 *.csv*
+
+# Py Virtual Env
+scripts/venv_*
