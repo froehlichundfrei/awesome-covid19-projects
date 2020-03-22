@@ -12,6 +12,7 @@ Thumbs.db
 sftp-config.json
 .tmp/
 .vscode/chrome
+.vscode/.ropeproject
 
 # Logs
 logs
