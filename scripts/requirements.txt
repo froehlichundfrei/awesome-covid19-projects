@@ -3,3 +3,4 @@ requests
 bs4
 twython
 python_graphql_client
+randomuser
