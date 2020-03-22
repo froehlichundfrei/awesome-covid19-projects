@@ -4,6 +4,10 @@
 // possible icons to the bundle.
 // https://react-icons.netlify.com/#/
 export {
+  IoLogoTwitter
+} from "react-icons/io";
+
+export {
   // people --------------------------------------------------------------------
   FaRegHandPeace,
   FaPeopleCarry,
@@ -90,7 +94,7 @@ export {
   FaBook,
   // FaBookOpen,
   // FaBookReader,
-  // FaBookmark,
+  FaBookmark,
   //
   // Business and finance ------------------------------------------------------
   // FaCreditCard,

@@ -20,8 +20,23 @@ function concatArticles(node) {
 
 class HelpCenterIndex extends React.Component {
   render() {
+    const bookmarkIcon = jsx(
+        icons['FaBookmark'],
+        { sx: { color: 'iconColor' }, size: '14px' },
+        null,
+      );
+    const twitterIcon = jsx(
+        icons['IoLogoTwitter'],
+        { sx: { color: 'iconColor' }, size: '14px' },
+        null,
+      );
+      
+      let randomNumber = Math.floor(Math.random() * 10); 
+      
+      
     return (
       <Layout
+        rand={Math.floor(Math.random() * 10)}
         location={this.props.location}
         title={this.props.data.site.siteMetadata.title}
         description={this.props.data.site.siteMetadata.description}
@@ -39,6 +54,8 @@ class HelpCenterIndex extends React.Component {
               }}
               to={`/projects/${project.id}`}
             >
+
+
               <article
                 sx={{
                   backgroundColor: 'paperBackgroundColor',
@@ -46,14 +63,15 @@ class HelpCenterIndex extends React.Component {
                   borderStyle: 'solid',
                   borderColor: 'paperBorderColor',
                   borderRadius: 3,
-                  py: 4,
-                  px: 2,
+                  py: 0, // 4
+                  px: 0,  // 2
                   position: 'relative',
                   zIndex: '3',
                   textDecoration: 'none',
                   overflow: 'hidden',
                   width: '100%',
                   display: 'flex',
+                  flexWrap: 'wrap',
                   flexDirection: ['column', 'row'],
                   outline: 'none',
                   mt: index === 0 ? 5 : 0,
@@ -79,38 +97,77 @@ class HelpCenterIndex extends React.Component {
                     alignItems: 'center',
                     justifyContent: ['flex-start', 'center'],
                     px: [2, 0],
-                    pb: [2, 0],
+                    // pb: [2, 0],
                   }}
                 >
-                  <img
+                  <img  sx={{ margin: '0 0 auto 0' }}
                     src={`http://95.217.162.167:8081/${project.id}.png`}
                     alt="Project Site"
                   />
                 </div>
-                <div sx={{ flex: '6', px: [2, 0], ml: 4 }}>
+                <div sx={{ flex: '6', px: [2, 0], ml: 3, mt: 3 }}>
                   <header>
                     <h3
                       sx={{
                         mt: 0,
+                        color: 'rgba(0,0,0,.87)',
+                    fontFamily: 'Roboto,Helvetica Neue,sans-serif',
+                    fontWeight: '500',
+                    fontSize: '20px',
                         mb: 2,
-                        color: 'inherit',
                       }}
                     >
-                      {project.twitterActions
-                        ? `(${project.twitterActions}) `
-                        : ''}
                       {project.title || project.id}
                     </h3>
                   </header>
                   <section
                     sx={{
-                      color: 'paperDescriptionColor',
+                      color: 'rgba(0,0,0,.54)',
+                      paddingRight: '16px',
+                      fontSize: '14px',
                     }}
                   >
                     {project.description.length < 300
                       ? project.description
                       : `${project.description.substring(0, 299)}...`}
                   </section>
+                </div>
+                <div sx={{ flexWrap: 'nowrap', minWidth: '100%', borderTop: '1px solid rgba(160,160,160,0.2)' }}>
+                  <div sx={{ flex: '6', px: [2, 0], ml: 3, mt: 3,  display: 'inline-flex', }}>
+                    <section
+                      sx={{
+                        color: 'rgba(0,0,0,.54)',
+                        paddingRight: '16px',
+                        fontSize: '14px',
+                      }}
+                    >
+                      Ratings
+                    </section>
+                  </div>
+                  <div sx={{ flex: '6', px: [2, 0], ml: 3, mt: 3, display: 'inline-flex', }}>
+                    <section
+                      sx={{
+                        color: 'rgba(0,0,0,.54)',
+                        paddingRight: '16px',
+                        fontSize: '14px',
+                      }}
+                    >
+                      {twitterIcon} {project.twitterActions
+                          ? `${project.twitterActions} `
+                          : ''}
+                    </section>
+                  </div>
+                  <div sx={{ flex: '12', px: [2, 0], ml: 3, mt: 3, display: 'inline-flex', }}>
+                    <section
+                      sx={{
+                        color: 'rgba(0,0,0,.54)',
+                        paddingRight: '16px',
+                        fontSize: '14px',
+                      }}
+                    >
+                      {bookmarkIcon}  {rand}<img  sx={{ width: '14px', height: '14px', mb: 0 }} src="https://randomuser.me/api/portraits/men/93.jpg"></img>
+                    </section>
+                  </div>
                 </div>
               </article>
             </Link>
