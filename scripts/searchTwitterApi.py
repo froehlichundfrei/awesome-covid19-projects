@@ -18,7 +18,7 @@ siteObjects = []
 
 # storeCredentials()
 
-print(os.getenv('CONSUMER_KEY'), os.getenv('CONSUMER_SECRET'))
+print(f'{os.getenv("CONSUMER_KEY")} und {os.getenv("CONSUMER_SECRET")}')
 def searchTwitter(siteObjects):
     client = GraphqlClient(endpoint='http://95.217.162.167:8080/v1/graphql')
 
