@@ -37,7 +37,7 @@ for hasuraSiteEntrie in hasuraSiteEntries["data"]["projects"]:
     print(imageName)
     asyncio.get_event_loop().run_until_complete(main(url, imageName))
     try:
-      print(minioClient.fput_object('webimages', imageName, imageName))
+      minioClient.fput_object('webimages', imageName, imageName)
     except ResponseError as err:
       print(err)
 
