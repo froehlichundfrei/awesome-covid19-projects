@@ -1,8 +1,10 @@
-# awesome-covid19
+# Project "Hilfinder"
 
-This reposotory is currently WIP. More information will be added soon.
+### About the Project:
 
-### Setup
+[Link to DevPost](https://devpost.com/software/034_nachbarschaftshilfe_smarte_projektubersicht)
+
+### Website Setup
 
 ```
 # install node modules
